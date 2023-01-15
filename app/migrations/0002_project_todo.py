@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Создано')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Обновлено')),
                 ('deleted', models.BooleanField(default=False, verbose_name='Удалено')),
-                ('task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='mainapp.project', verbose_name='Задание')),
+                ('task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.project', verbose_name='Задание')),
             ],
             options={
                 'verbose_name': 'Задание',

@@ -1,4 +1,4 @@
-from drf.librari.app import models
+from app import models
 from django.contrib import admin
 
 admin.site.register(models.Author)
