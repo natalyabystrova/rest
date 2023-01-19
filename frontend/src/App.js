@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthorList from './components/Author.js'
 import BookList from './components/Books.js'
+import AuthorBookList from './components/AuthorBook.js'
 import {BrowserRouter, Route, Routes, Link, Navigate} from 'react-router-dom'
 
 class NotFound404 extends React.Component {
@@ -48,6 +49,7 @@ class App extends React.Component {
                         <Routes>
                             <Route exact path='/' element={<AuthorList items={this.state.authors}/>} />
                             <Route exact path='/books' element={<BookList items={this.state.books}/>} />
+                            <Route path="/author/:id" element={<AuthorBookList items={this.state.books} />}/>
                             <Route path='/authors' element={<Navigate to='/'/>}/>
                             <Route path='*' element={<NotFound404/>} />
                         </Routes>
