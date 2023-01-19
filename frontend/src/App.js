@@ -1,9 +1,18 @@
 import React from 'react';
 import AuthorList from './components/Author.js'
-import BookList from './components/Book.js'
-import {HashRouter, Route} from 'react-router-dom'
+import BookList from './components/Books.js'
+import {BrowserRouter, Route, Routes, Link, Navigate} from 'react-router-dom'
 
+class NotFound404 extends React.Component {
 
+    render() {
+        return (
+            <div>
+                <h1>Страница по адресу {window.location.pathname} не найдена</h1>
+            </div>
+        )
+    }
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -25,21 +34,27 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <HashRouter>
-<                                <Route exact path='/' component={() => <AuthorList
-items={this.state.authors} />} />
-                                 <Route exact path='/books' component={() => <BookList
-items={this.state.books} />} />
-                </HashRouter>
+                <BrowserRouter>
+                    <nav>
+                        <ul>
+                            <li>
+                                <Link to='/'>Authors</Link>
+                            </li>
+                            <li>
+                                <Link to='/books'>Books</Link>
+                            </li>
+                        </ul>
+                    </nav>
+                        <Routes>
+                            <Route exact path='/' element={<AuthorList items={this.state.authors}/>} />
+                            <Route exact path='/books' element={<BookList items={this.state.books}/>} />
+                            <Route path='/authors' element={<Navigate to='/'/>}/>
+                            <Route path='*' element={<NotFound404/>} />
+                        </Routes>
+                </BrowserRouter>
             </div>
         )
     }
 }
+
 export default App;
-
-
-
-
-
-
-

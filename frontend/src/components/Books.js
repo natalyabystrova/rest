@@ -15,12 +15,16 @@ const BookItem = ({item}) => {
 const BookList = ({items}) => {
     return (
         <table>
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>AUHTOR</th>
-            </tr>
-            {items.map((item) => <BookItem item={item} />)}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>AUHTOR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items.map((item, key) => <BookItem key={key} item={item} />)}
+            </tbody>
         </table>
     )
 }

@@ -15,13 +15,17 @@ const AuthorItem = ({item}) => {
 const AuthorList = ({items}) => {
     return (
         <table>
-            <tr>
-                <th>ID</th>
-                <th>FIRST_NAME</th>
-                <th>LAST_NAME</th>
-                <th>BIRTHDAY_YEAR</th>
-            </tr>
-            {items.map((item) => <AuthorItem item={item} />)}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>FIRST_NAME</th>
+                    <th>LAST_NAME</th>
+                    <th>BIRTHDAY_YEAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {items.map((item, key) => <AuthorItem key={key} item={item} />)}
+            </tbody>
         </table>
     )
 }
