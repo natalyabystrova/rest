@@ -31,7 +31,6 @@ class ProjectModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    # filterset_fields = ['name_of_project', 'created_at']
     filterset_class = ProjectFilter
     pagination_class = ProjectLimitOffsetPagination
 
