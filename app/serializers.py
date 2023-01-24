@@ -6,7 +6,7 @@ from .models import Author, Book, Project, ToDo
 class AuthorModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Author
-        fields = ('first_name', 'last_name' 'birthday_year')
+        fields = '__all__'
 
 
 class ProjectModelSerializer(HyperlinkedModelSerializer):
