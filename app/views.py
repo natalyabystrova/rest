@@ -1,12 +1,11 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from .models import Author, Book
-from .serializers import AuthorModelSerializer, AuthorSerializer, BookSerializer
 from .models import Author, Project, ToDo
-from .serializers import AuthorModelSerializer, ProjectModelSerializer, ToDoModelSerializer
+from .serializers import AuthorModelSerializer, ProjectModelSerializer, ToDoModelSerializer, AuthorSerializer, BookSerializer
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
 from .filters import ProjectFilter, ToDoFilter
 from rest_framework.pagination import LimitOffsetPagination
@@ -20,6 +19,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 
