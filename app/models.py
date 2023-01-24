@@ -7,6 +7,15 @@ class Author(models.Model):
     last_name = models.CharField(max_length=64)
     birthday_year = models.PositiveIntegerField()
 
+    def __str__(self):
+        return self.last_name
+
+class Book(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Project(models.Model):
     name_of_project = models.CharField(max_length=150)

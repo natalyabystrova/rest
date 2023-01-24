@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from rest_framework import viewsets
 from rest_framework.viewsets import ModelViewSet
-from .models import Author
-from .serializers import AuthorModelSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from .models import Author, Book
+from .serializers import AuthorModelSerializer, AuthorSerializer, BookSerializer
 from .models import Author, Project, ToDo
 from .serializers import AuthorModelSerializer, ProjectModelSerializer, ToDoModelSerializer
 from rest_framework.renderers import JSONRenderer, BrowsableAPIRenderer
@@ -11,6 +14,15 @@ from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView
 
 
+class AuthorViewSet(viewsets.ModelViewSet):
+    serializer_class = AuthorSerializer
+    queryset = Author.objects.all()
+
+
+class BookViewSet(viewsets.ModelViewSet):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
 #class AuthorModelViewSet(ModelViewSet):
     #queryset = Author.objects.all()
     #serializer_class = AuthorModelSerializer
@@ -18,7 +30,6 @@ from rest_framework.generics import ListAPIView
 
 class ProjectLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
-
 
 class ProjectListAPIView(ListAPIView, ModelViewSet):
     renderer_classes = [JSONRenderer]
@@ -31,7 +42,6 @@ class ProjectModelViewSet(ModelViewSet):
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
-    # filterset_fields = ['name_of_project', 'created_at']
     filterset_class = ProjectFilter
     pagination_class = ProjectLimitOffsetPagination
 
