@@ -70,13 +70,14 @@ class App extends React.Component {
 
     load_data() {
         const headers = this.get_headers()
-        axios.get('http://127.0.0.1:8000/api/authors/', {headers})
+        axios.get('http://127.0.0.1:8000/api/authors', {headers, withCredentials: true})
             .then(response => {
                 this.setState({authors: response.data})
             }).catch(error => console.log(error))
 
 
-    axios.get('http://127.0.0.1:8000/api/books/', {headers})
+
+    axios.get('http://127.0.0.1:8000/api/books', {headers, withCredentials: true})
         .then(response => {
             this.setState({books: response.data})
         }).catch(error => {
