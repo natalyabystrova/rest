@@ -78,6 +78,7 @@ class TestBookViewSet(APITestCase):
         response_book = json.loads(response.content)
         self.assertEqual(response_book['name'], 'Алые паруса')
 
+
     def test_get_detail_author(self):
         book = mixer.blend(Book, author__name='Грин')
         response = self.client.get(f'/api/books/{book.id}/')
