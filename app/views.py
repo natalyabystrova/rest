@@ -17,6 +17,11 @@ class AuthorViewSet(viewsets.ModelViewSet):
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
 
+    def get_serializer_class(self):
+        if self.request.version == '2.0':
+            return AuthorSerializerBase
+        return AuthorSerializer
+
 
 class BookViewSet(viewsets.ModelViewSet):
     #permission_classes = [permissions.IsAuthenticated]
