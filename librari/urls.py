@@ -21,7 +21,11 @@ from django.conf.urls import include
 from app.views import ProjectModelViewSet, ToDoModelViewSet, ProjectListAPIView, AuthorViewSet, BookViewSet
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-
+from django.urls import path
+from graphene_django.views import GraphQLView
+from django.urls import re_path
+from userapp.views import UserListAPIView
+from rest_framework import permissions
 
 router = DefaultRouter()
 #router.register('authors', AuthorModelViewSet)
@@ -30,6 +34,18 @@ router.register('tasks', ToDoModelViewSet)
 router.register('projectlist', ProjectListAPIView)
 router.register('authors', AuthorViewSet)
 router.register('books', BookViewSet)
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Library",
+        default_version='0.1',
+        description="Documentation to out project",
+        contact=openapi.Contact(email="admin@admin.local"),
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,16 +60,17 @@ urlpatterns = [
     name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
     name='schema-redoc'),
+    path("graphql/", GraphQLView.as_view(graphiql=True)),
 ]
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Library",
-        default_version='0.1',
-        description="Documentation to out project",
-        contact=openapi.Contact(email="admin@admin.local"),
-        license=openapi.License(name="MIT License"),
-    ),
-    public=True,
-    permission_classes=[permissions.AllowAny],
-)
+# schema_view = get_schema_view(
+#     openapi.Info(
+#         title="Library",
+#         default_version='0.1',
+#         description="Documentation to out project",
+#         contact=openapi.Contact(email="admin@admin.local"),
+#         license=openapi.License(name="MIT License"),
+#     ),
+#     public=True,
+#     permission_classes=[permissions.AllowAny],
+# )
