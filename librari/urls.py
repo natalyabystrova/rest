@@ -46,6 +46,7 @@ urlpatterns = [
     name='schema-redoc'),
 ]
 
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Library",
