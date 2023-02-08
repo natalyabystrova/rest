@@ -36,15 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'rest_framework',
     'app',
     'django_filters',
     'rest_framework.authtoken',
     'corsheaders',
-    'django.contrib.staticfiles', # required for serving swagger ui's css/js
-    files
-        'drf_yasg',
+    'django.contrib.staticfiles', # required for serving swagger ui's css/js files
+    'drf_yasg',
+    "graphene_django"
 ]
 
 MIDDLEWARE = [
@@ -160,5 +159,9 @@ REST_FRAMEWORK = {
    # 'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     #'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     #'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning,
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+}
+
+GRAPHENE = {
+"SCHEMA": ".schema.schema"
 }
