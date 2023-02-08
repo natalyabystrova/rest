@@ -1,11 +1,19 @@
 import graphene
 from graphene_django import DjangoObjectType
-from app.models import Book, Author
+from ..app.models import Book, Author
+
 
 class BookType(DjangoObjectType):
     class Meta:
         model = Book
         fields = '__all__'
+
+
+class AuthorType(DjangoObjectType):
+    class Meta:
+        model = Author
+        fields = '__all__'
+
 
 class Query(graphene.ObjectType):
     all_books = graphene.List(BookType)
@@ -13,6 +21,7 @@ class Query(graphene.ObjectType):
     author_by_id = graphene.Field(AuthorType, id=graphene.Int(required=True))
     books_by_author_name = graphene.List(BookType,
                                          name=graphene.String(required=False))
+
     def resolve_all_books(root, info):
         return Book.objects.all()
 
@@ -21,7 +30,7 @@ class Query(graphene.ObjectType):
 
     def resolve_author_by_id(self, info, id):
         try:
-            return Author.objects.get(id=id)
+            return Author.objects.get(id=pk_id)
         except Author.DoesNotExist:
             return None
 
@@ -31,25 +40,24 @@ class Query(graphene.ObjectType):
             books = books.filter(author__name=name)
         return books
 
-class AuthorType(DjangoObjectType):
-    class Meta:
-        model = Author
-        fields = '__all__'
 
 class AuthorMutation(graphene.Mutation):
     class Arguments:
         birthday_year = graphene.Int(required=True)
         id = graphene.ID()
+
     author = graphene.Field(AuthorType)
 
     @classmethod
-    def mutate(cls, root, info, birthday_year, id):
-        author = Author.objects.get(pk=id)
+    def mutate(cls, root, info, birthday_year, pk_id):
+        author = Author.objects.get(pk=pk_id)
         author.birthday_year = birthday_year
         author.save()
-        return AuthorMutation(author=author)
+        return AuthorMutation()
+
 
 class Mutation(graphene.ObjectType):
     update_author = AuthorMutation.Field()
+
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
