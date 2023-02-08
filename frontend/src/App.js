@@ -136,10 +136,13 @@ onClick={()=>this.logout()}>Logout</button> : <Link to='/login'>Login</Link>}
                             <Route path='*' element={<NotFound404/>} />
                             <Route exact path='/login' element={<LoginForm
 get_token={(username, password) => this.get_token(username, password)} />} />
-                            <Route exact path='/books/create' component={() => <BookForm
+                            <Route exact path='/books/create' element={<BookForm
 createBook={(name, author) => this.createBook(name, author)} />} />
-                            <Route exact path='/books' component={<BookList
+                            <Route exact path='/books' element={<BookList
 items={this.state.books} deleteBook={(id)=>this.deleteBook(id)} />} />
+                            <Route exact path='/books/create' element={<BookForm
+authors={this.state.authors} createBook={(name, author) => this.createBook(name,
+author)} />} />
 
                         </Routes>
                 </BrowserRouter>
