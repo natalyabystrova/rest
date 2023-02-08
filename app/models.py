@@ -1,6 +1,7 @@
 from django.db import models
 from uuid import uuid4
 
+
 class Author(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True)
     first_name = models.CharField(max_length=64)
@@ -10,12 +11,14 @@ class Author(models.Model):
     def __str__(self):
         return self.last_name
 
+
 class Book(models.Model):
     name = models.CharField(max_length=64, unique=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
 
 class Project(models.Model):
     name_of_project = models.CharField(max_length=150)

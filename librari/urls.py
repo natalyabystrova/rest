@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from django.conf.urls import include
-from ..app.views import ProjectModelViewSet, ToDoModelViewSet, ProjectListAPIView, AuthorViewSet, BookViewSet
+from app.views import ProjectModelViewSet, ToDoModelViewSet, ProjectListAPIView, AuthorViewSet, BookViewSet
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.urls import path
 from graphene_django.views import GraphQLView
 from django.urls import re_path
-from ..userapp.views import UserListAPIView
+from userapp.views import UserListAPIView
 from rest_framework import permissions
 
 router = DefaultRouter()

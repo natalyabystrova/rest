@@ -1,7 +1,7 @@
 import json
 from django.test import TestCase
 from rest_framework import status
-from rest_framework.test import APIRequestFactory, force_authenticate, APIClient, APISimpleTestCase, APITestCase
+from rest_framework.test import APIRequestFactory, force_authenticate, APISimpleTestCase, APITestCase
 from mixer.backend.django import mixer
 from django.contrib.auth.models import User
 from .views import AuthorViewSet
@@ -23,7 +23,6 @@ class TestAuthorViewSet(TestCase):
         view = AuthorViewSet.as_view({'post': 'create'})
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
 
     def test_create_admin(self):
         factory = APIRequestFactory()
@@ -52,23 +51,23 @@ class TestBookViewSet(APITestCase):
 
         book = Book.objects.create(name='Пиковая дама', author=author)
         admin = User.objects.create_superuser('admin', 'admin@admin.com',
-'admin123456')
+                                              'admin123456')
         self.client.login(username='admin', password='admin123456')
         response = self.client.put(f'/api/books/{book.id}/', {'name': 'Руслан и
-Людмила', 'author': book.author.id})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        book = Book.objects.get(id=book.id)
+                                                              Людмила', 'author': book.author.id})
+                                                              self.assertEqual(response.status_code, status.HTTP_200_OK)
+                                                                  book = Book.objects.get(id=book.id)
         self.assertEqual(book.name, 'Руслан и Людмила')
 
     def test_edit_mixer(self):
         book = mixer.blend(Book)
         admin = User.objects.create_superuser('admin', 'admin@admin.com',
-'admin123456')
+                                              'admin123456')
         self.client.login(username='admin', password='admin123456')
         response = self.client.put(f'/api/books/{book.id}/', {'name': 'Руслан и
-Людмила', 'author': book.author.id})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        book = Book.objects.get(id=book.id)
+                                                              Людмила', 'author': book.author.id})
+                                                              self.assertEqual(response.status_code, status.HTTP_200_OK)
+                                                                  book = Book.objects.get(id=book.id)
         self.assertEqual(book.name, 'Руслан и Людмила')
 
     def test_get_detail(self):
@@ -78,11 +77,9 @@ class TestBookViewSet(APITestCase):
         response_book = json.loads(response.content)
         self.assertEqual(response_book['name'], 'Алые паруса')
 
-
     def test_get_detail_author(self):
         book = mixer.blend(Book, author__name='Грин')
         response = self.client.get(f'/api/books/{book.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response_book = json.loads(response.content)
         self.assertEqual(response_book['author']['name'], 'Грин')
-
