@@ -82,7 +82,7 @@ class App extends React.Component {
             .then(response => {
             this.setState({books: this.state.books.filter((item)=>item.id !==id)})
             }).catch(error => console.log(error))
-}
+    }
 
     createBook(name, author) {
         const headers = this.get_headers()
